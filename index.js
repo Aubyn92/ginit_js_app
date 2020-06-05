@@ -3,6 +3,8 @@ const clear = require ('clear')
 const figlet = require('figlet')
 
 const files = require('./lib/files');
+const github = require('./lib/github');
+const repo = require('./lib/repo');
 
 clear();  //clear the screen
 
@@ -17,13 +19,6 @@ if (files.directoryExists('.git')) {
     process.exit();
 }
 
-// const inquirer = require('./lib/inquirer');
-
-const run = async () => {
-    const credentials = await inquirer.askGithubCredentials();
-    console.log(credentials);
-};
-
 const getGithubToken = async () => {
     // Fetch token from config store
     let token = github.getStoredGithubToken();
@@ -36,23 +31,6 @@ const getGithubToken = async () => {
   
     return token;
   };
-
-run();
-
-// const github = require('./lib/github');
-
-const Configstore = require('configstore');
-const conf = new Configstore('ginit');
-
-const run = async () => {
-    let token = github.getStoredGithubToken();
-    if(!token) {
-      token = await github.getPersonalAccesToken();
-    }
-    console.log(token);
-  };
-
-const repo = require('./lib/repo');
 
 const run = async () => {
     try {
@@ -86,5 +64,6 @@ const run = async () => {
     }
   };
   
+run();
 
 
